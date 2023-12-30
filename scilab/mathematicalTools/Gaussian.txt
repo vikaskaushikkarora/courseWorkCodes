@@ -1,0 +1,11 @@
+funcprot(0)
+clc
+clf
+s=input("enter the value of variance")
+function y=f(x)
+    y=[(x+3)/sqrt(2*%pi*s*s)]*exp(-((x-2)^2)/(2*s*s));
+endfunction
+x=-10:0.01:10
+plot(x,f)
+integral=intg(-10,10,f)
+disp(integral)

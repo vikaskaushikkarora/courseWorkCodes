@@ -1,0 +1,50 @@
+//Particle in a Box Time Varying Wavefunction
+clc
+funcprot(0)
+m=50
+n=20000
+T=10
+a=(2/%pi)^(1/4)
+h=1.0546e-34
+M=9.1093e-31
+e=1.6021e-19
+L=10
+A=-1
+B=%i
+x=linspace(0,L,m)
+t=linspace(0,T,n)
+dx=x(2)-x(1)
+dt=t(2)-t(1)
+u=zeros(n,m)
+function y=f(x)
+    y=sin(%pi*x/L)+sin(2*%pi*x/L)+sin(3*%pi*x/L)
+endfunction
+for j=1:m
+    u(1,j)=f(x(j))
+end
+for i=1:n
+    u(i,1)=0
+    u(i,m)=0
+end
+//disp(x)
+//disp(t)
+//disp(dx)
+//disp(dt)
+for i=1:n-1
+for j=2:m-1
+u(i+1,j)=u(i,j)+((A*dt)/(B*dx^2))*(u(i,j+1)+u(i,j-1)-2*u(i,j))
+end
+end
+//disp(u) //wavefunction
+up=conj(u)
+U=up.*u
+//disp(U) //probability density
+for i=1:5:n
+drawlater(); //turn on double buffering so that operations
+clf(); //occur in the background
+plot2d(x,U(i,:),2)
+xgrid
+ax = gca();
+ax.data_bounds = [0,0;10,5]; //this is the command not to chnage the scale of the graph
+drawnow(); //copy the background buffer to the visible buffer
+end

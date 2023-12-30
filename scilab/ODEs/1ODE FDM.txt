@@ -1,0 +1,18 @@
+﻿//finite difference method
+clc
+clf
+funcprot(0)
+n= 1000 //divisions in x
+a= 0.5 //initial value of the function
+x=linspace(0,10,n)
+dx=x(2)-x(1)
+u=zeros(1,n)
+u(1)=a
+function z=f(x,u)
+ z = x*u
+endfunction
+for i = 1 : n-1
+u(i+1)=u(i)+dx*f(x(i),u(i))
+end
+disp(u)
+plot(x,u)

@@ -1,0 +1,58 @@
+// Perturbation in Orbit of a Planet due to Other Heavy Planet
+funcprot(0)
+clc
+clf
+// Enter the masses in Units of mass of the Earth 
+a=1e6 // Sun at the centre
+b=1 // Earth 
+c=318 // Other Planet , say Jupiter
+// Enter the initial coordinats of the three bodies 
+x10=0
+vx10=0
+y10=0
+vy10=0
+x20=1 // In Astronomical Units
+vx20=0
+y20=0
+vy20=sqrt(a) // Orbital velocity of Earth
+x30=5.2  // In Astronomical Units
+vx30=0
+y30=0
+vy30=sqrt(a/5.2) //Orbital velocity of Jupiter
+function dx=f(t,x)
+    dx(1)=x(2)
+    dx(2)=-(b*(x(1)-x(5))*((x(1)-x(5))^2+(x(3)-x(7))^2)^(-3/2)+c*(x(1)-x(9))*((x(1)-x(9))^2+(x(3)-x(11))^2)^(-3/2));
+    dx(3)=x(4)
+    dx(4)=-(b*(x(3)-x(7))*((x(1)-x(5))^2+(x(3)-x(7))^2)^(-3/2)+c*(x(3)-x(11))*((x(1)-x(9))^2+(x(3)-x(11))^2)^(-3/2));
+    dx(5)=x(6)
+    dx(6)=-(a*(x(5)-x(1))*((x(5)-x(1))^2+(x(7)-x(3))^2)^(-3/2)+c*(x(5)-x(9))*((x(5)-x(9))^2+(x(7)-x(11))^2)^(-3/2));
+    dx(7)=x(8)
+    dx(8)=-(a*(x(7)-x(3))*((x(5)-x(1))^2+(x(7)-x(3))^2)^(-3/2)+c*(x(7)-x(11))*((x(5)-x(9))^2+(x(7)-x(11))^2)^(-3/2));
+    dx(9)=x(10);
+    dx(10)=-(a*(x(9)-x(1))*((x(9)-x(1))^2+(x(11)-x(3))^2)^(-3/2)+b*(x(9)-x(5))*((x(9)-x(5))^2+(x(11)-x(7))^2)^(-3/2));
+    dx(11)=x(12)
+    dx(12)=-(a*(x(11)-x(3))*((x(9)-x(1))^2+(x(11)-x(3))^2)^(-3/2)+b*(x(11)-x(7))*((x(9)-x(5))^2+(x(11)-x(7))^2)^(-3/2));
+endfunction
+n=3000
+t=linspace(0,0.2,n)
+sol=ode([x10,vx10,y10,vy10,x20,vx20,y20,vy20,x30,vx30,y30,vy30]',0,t,f);
+for i=1:n
+X1(i)=sol(1,i)
+Y1(i)=sol(3,i)
+X2(i)=sol(5,i)
+Y2(i)=sol(7,i)
+X3(i)=sol(9,i)
+Y3(i)=sol(11,i)
+function p=F(r)
+    p=sqrt(0.01-r^2)
+endfunction
+function q=G(r)
+    q=-sqrt(0.01-r^2)
+endfunction
+end
+x=linspace(-0.1,0.1,n)
+plot(X1,Y1,'b')
+plot(X2,Y2,'g') 
+plot(X3,Y3,'r') 
+Q=legend('sun','earth','mars',%F)
+xgrid

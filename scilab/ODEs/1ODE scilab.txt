@@ -1,0 +1,12 @@
+// FIRST ORDER EQUATIONS BY SCILAB INBUILT COMMAND ODE
+clf
+clc
+x0=0
+xf=5
+y0=10
+function dy=f(x,y)
+    dy=x*sin(x)+cos(x)
+endfunction
+x=x0:0.01:xf
+sol=ode(y0,x0,x,f)
+comet(x,f)

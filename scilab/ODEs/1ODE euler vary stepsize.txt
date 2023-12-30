@@ -1,0 +1,23 @@
+clf
+clc
+funcprot(0)
+function dy=f(x,y)
+    dy=besseli(1,x) //creates bessel functions of first kind of order one
+endfunction
+a=input("enter the initial value of independent variable : ");
+b=input("enter the initial value of the function : ");
+x(1)=a;
+y(1)=b;
+h=0.01
+for i=1:1000
+    x(i+1)=x(i)+h;
+    y(i+1)=y(i)+h*f(x(i),y(i));
+end
+plot(x,y,'b')
+k=0.1
+for i=1:1000
+    x(i+1)=x(i)+h;
+    y(i+1)=y(i)+k*f(x(i),y(i));
+end
+plot(x,y,'r')
+q=legend('more accurate','less accurate(large stepsize)')

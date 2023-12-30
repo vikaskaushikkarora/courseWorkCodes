@@ -1,0 +1,335 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module lcpfct ! in 
+    interface  ! in :lcpfct
+        subroutine lcpfct(rhoo,rhon,i1,in,srho1,vrho1,srhon,vrhon,pbc) ! in :lcpfct:lcpfct.f
+            real dimension(1000),intent(in) :: rhoo
+            real dimension(1000),intent(out) :: rhon
+            integer intent(in) :: i1
+            integer intent(in) :: in
+            real intent(in) :: srho1
+            real intent(in) :: vrho1
+            real intent(in) :: srhon
+            real intent(in) :: vrhon
+            logical intent(in) :: pbc
+            real dimension(1000) :: scrh
+            real dimension(1000) :: scr1
+            real dimension(1000) :: diff
+            real dimension(1000) :: flxh
+            real dimension(1000) :: fabs
+            real dimension(1000) :: fsgn
+            real dimension(1000) :: term
+            real dimension(1000) :: terp
+            real dimension(1000) :: lnrhot
+            real dimension(1000) :: lorhot
+            real dimension(1000) :: rhot
+            real dimension(1000) :: rhotd
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            real dimension(1000) :: hadudth
+            real dimension(1000) :: nulh
+            real dimension(1000) :: mulh
+            real dimension(1000) :: epsh
+            real dimension(1000) :: vdtodr
+            real dimension(1000) :: source
+            real :: diff1
+            common /fct_scrh/ scrh,scr1,diff,flxh,fabs,fsgn,term,terp,lnrhot,lorhot,rhot,rhotd
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+            common /fct_velo/ hadudth,nulh,mulh,epsh,vdtodr
+            common /fct_misc/ source,diff1
+        end subroutine lcpfct
+        subroutine makegrid(radho,radhn,i1,inp,alpha) ! in :lcpfct:lcpfct.f
+            real dimension(inp),intent(in) :: radho
+            real dimension(inp),intent(in),depend(inp) :: radhn
+            integer intent(in) :: i1
+            integer, optional,intent(in),check(shape(radho, 0) == inp),depend(radho) :: inp=shape(radho, 0)
+            integer intent(in) :: alpha
+            real dimension(1000) :: scrh
+            real dimension(1000) :: scr1
+            real dimension(1000) :: diff
+            real dimension(1000) :: flxh
+            real dimension(1000) :: fabs
+            real dimension(1000) :: fsgn
+            real dimension(1000) :: term
+            real dimension(1000) :: terp
+            real dimension(1000) :: lnrhot
+            real dimension(1000) :: lorhot
+            real dimension(1000) :: rhot
+            real dimension(1000) :: rhotd
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            common /fct_scrh/ scrh,scr1,diff,flxh,fabs,fsgn,term,terp,lnrhot,lorhot,rhot,rhotd
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+        end subroutine makegrid
+        subroutine velocity(uh,i1,inp,dt) ! in :lcpfct:lcpfct.f
+            real dimension(inp) :: uh
+            integer :: i1
+            integer, optional,check(shape(uh, 0) == inp),depend(uh) :: inp=shape(uh, 0)
+            real :: dt
+            real dimension(1000) :: scrh
+            real dimension(1000) :: scr1
+            real dimension(1000) :: diff
+            real dimension(1000) :: flxh
+            real dimension(1000) :: fabs
+            real dimension(1000) :: fsgn
+            real dimension(1000) :: term
+            real dimension(1000) :: terp
+            real dimension(1000) :: lnrhot
+            real dimension(1000) :: lorhot
+            real dimension(1000) :: rhot
+            real dimension(1000) :: rhotd
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            real dimension(1000) :: hadudth
+            real dimension(1000) :: nulh
+            real dimension(1000) :: mulh
+            real dimension(1000) :: epsh
+            real dimension(1000) :: vdtodr
+            common /fct_scrh/ scrh,scr1,diff,flxh,fabs,fsgn,term,terp,lnrhot,lorhot,rhot,rhotd
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+            common /fct_velo/ hadudth,nulh,mulh,epsh,vdtodr
+        end subroutine velocity
+        subroutine sources(i1,in,dt,mode,c,d,d1,dn) ! in :lcpfct:lcpfct.f
+            integer :: i1
+            integer :: in
+            real :: dt
+            integer :: mode
+            real dimension(1000) :: c
+            real dimension(1000) :: d
+            real :: d1
+            real :: dn
+            real dimension(150) :: scalars
+            integer :: nind
+            integer dimension(150) :: indx
+            real dimension(1000) :: scrh
+            real dimension(1000) :: scr1
+            real dimension(1000) :: diff
+            real dimension(1000) :: flxh
+            real dimension(1000) :: fabs
+            real dimension(1000) :: fsgn
+            real dimension(1000) :: term
+            real dimension(1000) :: terp
+            real dimension(1000) :: lnrhot
+            real dimension(1000) :: lorhot
+            real dimension(1000) :: rhot
+            real dimension(1000) :: rhotd
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            real dimension(1000) :: source
+            real :: diff1
+            common /fct_ndex/ scalars,nind,indx
+            common /fct_scrh/ scrh,scr1,diff,flxh,fabs,fsgn,term,terp,lnrhot,lorhot,rhot,rhotd
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+            common /fct_misc/ source,diff1
+        end subroutine sources
+        subroutine cnvfct(rhoo,rhon,i1,in,srho1,vrho1,srhon,vrhon,pbc) ! in :lcpfct:lcpfct.f
+            real dimension(1000),intent(in) :: rhoo
+            real dimension(1000),intent(out) :: rhon
+            integer :: i1
+            integer :: in
+            real :: srho1
+            real :: vrho1
+            real :: srhon
+            real :: vrhon
+            logical :: pbc
+            real dimension(1000) :: scrh
+            real dimension(1000) :: scr1
+            real dimension(1000) :: diff
+            real dimension(1000) :: flxh
+            real dimension(1000) :: fabs
+            real dimension(1000) :: fsgn
+            real dimension(1000) :: term
+            real dimension(1000) :: terp
+            real dimension(1000) :: lnrhot
+            real dimension(1000) :: lorhot
+            real dimension(1000) :: rhot
+            real dimension(1000) :: rhotd
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            real dimension(1000) :: hadudth
+            real dimension(1000) :: nulh
+            real dimension(1000) :: mulh
+            real dimension(1000) :: epsh
+            real dimension(1000) :: vdtodr
+            real dimension(1000) :: source
+            real :: diff1
+            common /fct_scrh/ scrh,scr1,diff,flxh,fabs,fsgn,term,terp,lnrhot,lorhot,rhot,rhotd
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+            common /fct_velo/ hadudth,nulh,mulh,epsh,vdtodr
+            common /fct_misc/ source,diff1
+        end subroutine cnvfct
+        subroutine conserve(rho,i1,in,csum) ! in :lcpfct:lcpfct.f
+            real dimension(1000) :: rho
+            integer :: i1
+            integer :: in
+            real intent(out) :: csum
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+        end subroutine conserve
+        subroutine copygrid(mode,i1,in) ! in :lcpfct:lcpfct.f
+            integer :: mode
+            integer :: i1
+            integer :: in
+            real dimension(1000) :: lop
+            real dimension(1000) :: lnp
+            real dimension(1000) :: ahp
+            real dimension(1000) :: rlnp
+            real dimension(1000) :: lhp
+            real dimension(1000) :: rlhp
+            real dimension(1000) :: rohp
+            real dimension(1000) :: rnhp
+            real dimension(1000) :: adugthp
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            common /old_grid/ lop,lnp,ahp,rlnp,lhp,rlhp,rohp,rnhp,adugthp
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+        end subroutine copygrid
+        block data fctblk ! in :lcpfct:lcpfct.f
+            real, optional,dimension(1000),depend(npt) :: source=(/npt*0.0/)
+            real, optional :: diff1=0.999
+            integer, parameter,optional :: npt=1000
+            common /fct_misc/ source,diff1
+        end block data fctblk
+        subroutine new_grid(radhn,i1,inp,alpha) ! in :lcpfct:lcpfct.f
+            real dimension(inp) :: radhn
+            integer :: i1
+            integer, optional,check(shape(radhn, 0) == inp),depend(radhn) :: inp=shape(radhn, 0)
+            integer :: alpha
+            real dimension(1000) :: scrh
+            real dimension(1000) :: scr1
+            real dimension(1000) :: diff
+            real dimension(1000) :: flxh
+            real dimension(1000) :: fabs
+            real dimension(1000) :: fsgn
+            real dimension(1000) :: term
+            real dimension(1000) :: terp
+            real dimension(1000) :: lnrhot
+            real dimension(1000) :: lorhot
+            real dimension(1000) :: rhot
+            real dimension(1000) :: rhotd
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            common /fct_scrh/ scrh,scr1,diff,flxh,fabs,fsgn,term,terp,lnrhot,lorhot,rhot,rhotd
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+        end subroutine new_grid
+        subroutine residiff(diffa) ! in :lcpfct:lcpfct.f
+            real intent(in) :: diffa
+            real dimension(1000) :: source
+            real :: diff1
+            common /fct_misc/ source,diff1
+        end subroutine residiff
+        subroutine set_grid(radr,i1,in) ! in :lcpfct:lcpfct.f
+            real :: radr
+            integer :: i1
+            integer :: in
+            real dimension(1000) :: lop
+            real dimension(1000) :: lnp
+            real dimension(1000) :: ahp
+            real dimension(1000) :: rlnp
+            real dimension(1000) :: lhp
+            real dimension(1000) :: rlhp
+            real dimension(1000) :: rohp
+            real dimension(1000) :: rnhp
+            real dimension(1000) :: adugthp
+            real dimension(1000) :: lo
+            real dimension(1000) :: ln
+            real dimension(1000) :: ah
+            real dimension(1000) :: rln
+            real dimension(1000) :: lh
+            real dimension(1000) :: rlh
+            real dimension(1000) :: roh
+            real dimension(1000) :: rnh
+            real dimension(1000) :: adugth
+            common /old_grid/ lop,lnp,ahp,rlnp,lhp,rlhp,rohp,rnhp,adugthp
+            common /fct_grid/ lo,ln,ah,rln,lh,rlh,roh,rnh,adugth
+        end subroutine set_grid
+        subroutine zerodiff(ind) ! in :lcpfct:lcpfct.f
+            integer :: ind
+            real dimension(150) :: scalars
+            integer :: nind
+            integer dimension(150) :: indx
+            real dimension(1000) :: hadudth
+            real dimension(1000) :: nulh
+            real dimension(1000) :: mulh
+            real dimension(1000) :: epsh
+            real dimension(1000) :: vdtodr
+            common /fct_ndex/ scalars,nind,indx
+            common /fct_velo/ hadudth,nulh,mulh,epsh,vdtodr
+        end subroutine zerodiff
+        subroutine zeroflux(ind) ! in :lcpfct:lcpfct.f
+            integer :: ind
+            real dimension(150) :: scalars
+            integer :: nind
+            integer dimension(150) :: indx
+            real dimension(1000) :: hadudth
+            real dimension(1000) :: nulh
+            real dimension(1000) :: mulh
+            real dimension(1000) :: epsh
+            real dimension(1000) :: vdtodr
+            common /fct_ndex/ scalars,nind,indx
+            common /fct_velo/ hadudth,nulh,mulh,epsh,vdtodr
+        end subroutine zeroflux
+    end interface 
+end python module lcpfct
+
+! This file was auto-generated with f2py (version:1.26.0).
+! See:
+! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e

@@ -1,0 +1,75 @@
+//Hydrogen atom
+clc
+funcprot(0)
+N=1001
+h=1.0546e-34
+m=9.1093e-31
+e=1.6021e-19
+l=0
+N2=N+2
+x=linspace(0.000005e-10,15e-10,N2)
+dx=x(2)-x(1)
+x(:,N2)=[]
+x(:,1)=[]
+Y=zeros(N,N)
+for i=1:N-1
+    Y(i,i)=-2
+    Y(i,i+1)=1
+    Y(i+1,i)=1
+end
+Y(N,N)=-2
+dsq=(dx)^2
+H=h^2
+E=e^2
+k=(1/dsq)*(H/(2*m))
+M=-(Y)*k
+U=zeros(N,N)
+// We will add angular momentum contribution in potential
+for i=1:N
+    U(i,i)=-8.9875e9*E/x(i)+l*(l+1)*H/(2*m*x(i)*x(i))
+end
+V=M+U
+[psi,Estates]=spec(V)
+disp("Energy of 1s (in eV)")
+disp(Estates(1,1)/e)
+disp("Energy of 2s (in eV)")
+disp(Estates(2,2)/e)
+disp("Energy of 3s (in eV)")
+disp(Estates(3,3)/e)
+plot(x,psi(:,1)')
+plot(x,psi(:,2)','r')
+plot(x,psi(:,3)','g')
+
+xgrid
+l=1
+N2=N+2
+x=linspace(0.000005e-10,20e-10,N2)
+dx=x(2)-x(1)
+x(:,N2)=[]
+x(:,1)=[]
+Y=zeros(N,N)
+for i=1:N-1
+    Y(i,i)=-2
+    Y(i,i+1)=1
+    Y(i+1,i)=1
+end
+Y(N,N)=-2
+dsq=(dx)^2
+H=h^2
+E=e^2
+k=(1/dsq)*(H/(2*m))
+M=-(Y)*k
+U=zeros(N,N)
+// We will add angular momentum contribution in potential
+for i=1:N
+    U(i,i)=-8.9875e9*E/x(i)+l*(l+1)*H/(2*m*x(i)*x(i))
+end
+V=M+U
+[psi,Estates]=spec(V)
+disp("Energy of 2p (in eV)")
+disp(Estates(2,2)/e)
+disp("Energy of 3p (in eV)")
+disp(Estates(3,3)/e)
+plot2d(x,psi(:,2)',1)
+plot2d(x,psi(:,3)',4)
+q=legend(['1s','2s','3s','2p','3p'])

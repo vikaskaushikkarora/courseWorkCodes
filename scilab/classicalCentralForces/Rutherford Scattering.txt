@@ -1,0 +1,32 @@
+// rutherford scattering 
+clf
+clc
+for i=1:100
+x0=5
+vx0=-10
+y0=10-i*(0.2)
+vy0=0
+a=200// a=KQ strength of the field
+function dx=f(t,x)
+    dx(1)=x(2);
+    dx(2)=(a*x(1))*(x(1)^2+x(3)^2)^(-3/2);
+    dx(3)=x(4);
+    dx(4)=(a*x(3))*(x(1)^2+x(3)^2)^(-3/2);
+endfunction
+t=0:0.001:2
+sol=ode([x0,vx0,y0,vy0]',0,t,f)
+//putting gold nucleus at origin
+function y=h(x)
+    y=sqrt(0.25-x^2)
+endfunction
+function z=g(x)
+    z=-sqrt(0.25-x^2)
+endfunction
+x=-0.5:0.001:0.5
+plot(x,h)
+plot(x,g)
+q=legend('nucleus')
+//plotting points
+plot(sol(1,:),sol(3,:),'r')
+end
+

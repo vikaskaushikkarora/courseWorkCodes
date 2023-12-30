@@ -1,0 +1,43 @@
+// Newton Raphson Method To Claculate Zeros
+clf
+clc
+funcprot(0)
+deff('y=f(x)','y=(x-1)*(x-10)*(x+%pi)*x')//define function 
+h=0.00001
+deff('z=g(x,f)','z=(f(x+h)-f(x))/h')//define slope function
+x=linspace(-4,12,10000)
+plot(x,f)
+xgrid
+n=500
+a=zeros(n,1)
+a(1)=rand()
+for i=2:n
+    a(i)=a(i-1)-f(a(i-1))/g(a(i-1))
+end
+//the different numbers correspond to the zeroes in different resgions :first one in 0 to 1 , second one in -1 to 0 , third and fourth cover the part from -10 to 10 similarily and the remaining two cover -100 to 100
+disp(a(n))
+a(1)=-1*rand()
+for i=2:n
+    a(i)=a(i-1)-f(a(i-1))/g(a(i-1))
+end
+disp(a(n))
+a(1)=10*rand()
+for i=2:n
+    a(i)=a(i-1)-f(a(i-1))/g(a(i-1))
+end
+disp(a(n))
+a(1)=-10*rand()
+for i=2:n
+    a(i)=a(i-1)-f(a(i-1))/g(a(i-1))
+end
+disp(a(n))
+a(1)=100*rand()
+for i=2:n
+    a(i)=a(i-1)-f(a(i-1))/g(a(i-1))
+end
+disp(a(n))
+a(1)=-100*rand()
+for i=2:n
+    a(i)=a(i-1)-f(a(i-1))/g(a(i-1))
+end
+disp(a(n))

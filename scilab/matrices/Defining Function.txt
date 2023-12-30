@@ -1,0 +1,7 @@
+// defining function in  simple way
+deff('x = myplus(y,z)', 'x = y+z')
+myplus(1,%i)
+
+deff('[y, z] = mymacro(x)', ['y = 3*x+1'; 'z = a*x + x.^2'])
+a = 3;
+[u, v] = mymacro(2)

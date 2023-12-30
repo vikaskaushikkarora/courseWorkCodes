@@ -1,0 +1,22 @@
+// Blackbody Radations //
+clc
+clf
+funcprot(0)
+h=6.6e-34
+k=1.3e-23
+T=3000
+c=3*1e8
+x=0:1e12:5e14
+function z=g(x)
+    z=(8*%pi*h*x^3)/((exp(h*x/(k*T))-1)*c^3)
+endfunction
+plot(x,g,'r')
+xgrid
+T=4000
+x=0:1e12:5e14
+function z=g(x)
+    z=(8*%pi*h*x^3)/((exp(h*x/(k*T))-1)*c^3)
+endfunction
+plot(x,g,'b')
+xgrid
+q=legend('Rayleigh Jeans','Quantum Mechanics')

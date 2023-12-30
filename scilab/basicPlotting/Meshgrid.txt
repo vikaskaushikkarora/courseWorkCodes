@@ -1,0 +1,14 @@
+// Plotting Using MeshGrid
+x = -1:0.1:1;
+y = -1:0.1:1;
+
+[X,Y] = meshgrid(x,y);
+disp(X)
+disp(Y)
+for i=1:size(X,1)
+  for j=1:size(X,2)
+    Z(i,j) = sin(2*%pi*X(i,j)*Y(i,j));
+  end
+end
+
+surf(X,Y,Z)

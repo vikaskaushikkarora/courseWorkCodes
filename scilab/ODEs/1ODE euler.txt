@@ -1,0 +1,16 @@
+clf
+clc
+funcprot(0)
+function dy=f(x,y)
+    dy=x^2-y*exp(-x)
+endfunction
+a=input("enter the initial value of independent variable : ");
+b=input("enter the initial value of the function : ");
+x(1)=a;
+y(1)=b;
+h=0.01
+for i=1:1000
+    x(i+1)=x(i)+h;
+    y(i+1)=y(i)+h*f(x(i),y(i));
+end
+plot(x,y)

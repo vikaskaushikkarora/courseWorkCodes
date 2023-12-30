@@ -1,0 +1,35 @@
+// Lorentz Equations Of Chaos
+funcprot(0)
+n=800
+p=1
+q=1
+r=1
+function dx=a(t,x,y,z)
+    dx=p*(y-x)
+endfunction
+function dy=b(t,x,y,z)
+    dy=x*(q-z)-y
+endfunction
+function dz=c(t,x,y,z)
+    dz=x*y-r*z
+endfunction
+h=0.001
+t(1)=0
+x(1)=1
+y(1)=1
+z(1)=1
+//second order range kutta method for better results
+for i=1:n
+    t(i+1)=t(i)+h
+    x(i+1)=x(i)+(h/2)*(a(t(i),x(i),y(i),z(i))+a(t(i)+h,x(i)+h*a(t(i),x(i),y(i),z(i)),y(i)+h*b(t(i),x(i),y(i),z(i)),z(i)+h*c(t(i),x(i),y(i),z(i))))
+    y(i+1)=y(i)+(h/2)*(b(t(i),x(i),y(i),z(i))+b(t(i)+h,x(i)+h*a(t(i),x(i),y(i),z(i)),y(i)+h*b(t(i),x(i),y(i),z(i)),z(i)+h*c(t(i),x(i),y(i),z(i))))
+    z(i+1)=z(i)+(h/2)*(c(t(i),x(i),y(i),z(i))+c(t(i)+h,x(i)+h*a(t(i),x(i),y(i),z(i)),y(i)+h*b(t(i),x(i),y(i),z(i)),z(i)+h*c(t(i),x(i),y(i),z(i))))
+end
+comet3d(x,y,z)
+disp(t)  // confirm that there are no mechnical errors by scilab itself
+disp(x)  // just check initial conditions and no. of iterations 
+disp(y)
+disp(z)
+xlabel('x')
+ylabel('y')
+zlabel('z')

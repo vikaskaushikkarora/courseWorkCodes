@@ -1,0 +1,53 @@
+//Freely Moving Particle //
+// The value of planck constant and charge are taken to be 1 , the mass is 2 units and the units of time and space are natural units . 
+clc
+funcprot(0)
+m=198 // space divisions
+n=3000 // time divisions ; take as large as possible since dt/dx^2  term in euler formula of pde
+k=3 // Velocity of the particle
+A=-1 //-(h^2)/(2*m)
+B=%i //%i*h
+x=linspace(-10,10,m)
+t=linspace(0,1,n)
+dx=x(2)-x(1)
+dt=t(2)-t(1)
+u=zeros(n,m)
+// Defining Initial Conditions and Boundary Conditions 
+function y=f(x)
+    y=exp(-(x^2)/0.25)*exp(%i*k*x)
+endfunction
+for j=1:m
+    u(1,j)=f(x(j))
+end
+for i=1:n
+    u(i,1)=0
+    u(i,m)=0
+end
+// Defining Potential
+for j=1:m
+    v(j)=0
+end
+//disp(x)
+//disp(t)
+//disp(dx)
+//disp(dt)
+// Iterations in PDE : Time Dependent Schroedinger Equation 
+for i=1:n-1
+    for j=2:m-1
+    u(i+1,j)=u(i,j)+((A*dt)/(B*dx^2))*(u(i,j+1)+u(i,j-1)-2*u(i,j))-%i*v(j)*u(i,j)
+end
+end
+//disp(u) //Wavefunction
+up=conj(u)
+U=up.*u
+//disp(U) //Probability density
+// Animation
+for i=1:10:n
+drawlater(); //turn on double buffering so that operations
+clf(); //occur in the background
+plot2d(x,U(i,:),2)
+xgrid
+ax = gca();
+ax.data_bounds = [-10,0;10,1.2]; //this is the command not to chnage the scale of the graph
+drawnow(); //copy the background buffer to the visible buffer
+end

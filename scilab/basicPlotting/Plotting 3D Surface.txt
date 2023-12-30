@@ -1,0 +1,16 @@
+funcprot(0)
+clc
+clf
+//plotting surface of Dr. Naagi
+x=-5:0.1:5
+y=-5:0.1:5
+function z=f(x,y)
+    z=2.5*exp((-x^2-y^2)/0.7)+0.5*(1-(x-2)^2-(y-2)^2)^(0.5)
+endfunction
+//z=eval3d(f,x,y)
+z=feval(x,y,f)
+surf(x,y,z)
+//plot3d(x,y,z)
+// use any one of surf or plot3d
+// use any one of feval or eval3d
+//eval3d is obslete

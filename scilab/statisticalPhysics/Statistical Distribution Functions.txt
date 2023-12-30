@@ -1,0 +1,24 @@
+// The Three Statistical Distributions //
+clc
+clf
+k=1.38e-23
+e=1.60e-19
+T=300
+disp('order of energy in eVs')
+disp(k*T/e)
+P=0.02 // Fermi Level Energy in eVs
+x=0.001:0.0001:0.10// energy in eVs
+function y=f(x)   // Maxwell Boltzmann Statistical Distribution 
+        y=exp(-x*e/(k*T))
+endfunction
+plot(x,f,'b')
+function w=h(x)    // Fermi Dirac Statistical Distribution
+        w=1/(exp((x-P)*e/(k*T))+1)
+endfunction
+plot(x,h,'g')
+x=0.005:0.0001:0.10// energy in eVs
+function z=g(x)   // Bose Einstein Statistical Distribution
+        z=1/(exp(x*e/(k*T))-1)
+endfunction
+plot(x,g,'r')
+xgrid

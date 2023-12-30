@@ -1,0 +1,13 @@
+clc
+funcprot(0)
+n=input("enter the number of terms : ")
+a=0.20; // initial first term
+r=0.10  // common ratio
+s(1)=a;
+for i=1:n
+s(i+1)=s(i)+a*r^i;
+end
+disp(s(i+1))
+k=a/(1-r);
+disp("if it is an infinte GP , the sum is : ")
+disp(k)

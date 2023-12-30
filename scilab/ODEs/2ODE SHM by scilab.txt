@@ -1,0 +1,16 @@
+clf
+clc
+funcprot(0)
+function dx=f(t,x)
+    dx(1)=x(2);
+    dx(2)=-0.02*x(2)-4*x(1)
+endfunction
+t0 = 0.001  // initial value of time
+k= 0  // initial value of the function at t=t0
+l= 1  // final value of the function at t=t0
+t = t0:0.001:10;
+y0=[k;l];
+y=ode(y0,t0,t,f);
+plot(t,y(1,:),'LineWidth',2) // linewidth changes the linewidth
+plot(t,y(2,:),'r','LineWidth',2)
+q=legend (['f(x)','derivative of f(x)']) // new way to mark the multiple graphs

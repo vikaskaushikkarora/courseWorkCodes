@@ -1,0 +1,29 @@
+// A Moving Circle
+// You can show molecule collide modifying this programme
+//initial position of the point
+x1=1 
+y1=1
+n=30
+//define time window
+t=linspace(0,2,n)
+// define the trajectory of the particle in parameterized form 
+for i=1:n
+x(i)=t(i) 
+y(i)=5*t(i)^2
+end
+x0=linspace(-0.4,0.4,300)
+y0=(0.16-(x0)^2)^(1/2)
+z0=-(0.16-(x0)^2)^(1/2)
+for i=1:n
+drawlater() ;//turn on double buffering so that operations
+clf(); //occur in the background
+plot(x0+x1+x(i),y0+y1+y(i),'*b') 
+plot(x0+x1+x(i),z0+y1+y(i),'*b')
+xgrid
+ax = gca();
+ax.data_bounds = [x(1)+x1-1,y(1)+y1-1;x(n)+x1+1,y(n)+y(1)+1];//this is the command not to chnage the scale of the graph
+drawnow() ;//copy the background buffer to the visible buffer
+end
+for i=1:n
+plot2d(x(i)+x1,y(i)+y1,-2)
+end

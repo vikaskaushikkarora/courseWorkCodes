@@ -1,0 +1,35 @@
+// heat eqn :- a*D^2(u(x,t))x = D(u(x,t))t ; a= conductivity //
+// Temperature fixed at ends//
+clc
+clf
+L=10 //length of the rod
+n=100 // small divisions in length
+T=5 //time after which u want to see the results
+m=100 // time divisions
+a=0.1 //conductivity
+h=L/n //space stepsize
+k=T/m // time stepsize
+t=linspace(0,T,m)
+x=linspace(0,L,n)
+u=zeros(m,n) // creating temperature matrix having entries m*n 
+r=a*k/(h^2)
+for i=1:m
+    u(i,1)=273 // temp at leftmost end of the rod at all times
+    u(i,n)=300 //temperature at the other end of the rod at lall times
+end
+for j=2:n-1
+    u(1,j)=0   // boundary condition 
+end
+//disp(x)
+//disp(t)
+//disp(u)
+for i=1:m-1
+    for j=2:n-1
+        u(i+1,j)=u(i,j)+r*(u(i,j-1)+u(i,j+1)-2*u(i,j)) //finite difference method
+end end
+disp(u)
+
+surf(x,t,u)
+xlabel('space')
+ylabel('time')
+zlabel('temperature')

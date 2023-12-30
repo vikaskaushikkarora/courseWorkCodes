@@ -1,0 +1,33 @@
+clc
+disp("Test matrix M is :")
+M=[1 2 3;4 8 6;7 8 9]
+disp(M)
+A=inv(M)
+disp("Inverse of M :")
+disp(A)
+B=bdiag(M)
+disp("Diagonallized matrix of M :")
+disp(B)
+disp("Another matrix b is :")
+b=[3;4;5]
+disp(b)
+C=[M b]
+disp("Augmented matrix of M :")
+disp(C)
+disp("For a system of linear equations A*X=b ;")
+X=A\b
+disp("The value of the variables are :")
+disp(X)
+[E,F]=spec(M)
+disp("The eignvalue matrix is :")
+disp(F)
+disp("The eignvalue are displayed in the diagonal elementsd as :")
+for i=1:3
+    disp(F(i,i))
+end
+disp("The eignvector matrix E is :")
+disp(E)
+disp("The eignvector are displayed in the columns of the matrix E as :")
+for i=1:3
+    disp(E(:,1))
+end

@@ -1,0 +1,12 @@
+function y=f(x)
+    y=x
+endfunction
+function z=g(s,x)
+    z=f(x)*exp(-s*x)
+endfunction
+function q=laplace(s)
+    q=integrate('g(s,x)','x',0,100)
+endfunction
+disp(laplace(2))
+s=0.01:0.1:10
+plot(s,laplace)

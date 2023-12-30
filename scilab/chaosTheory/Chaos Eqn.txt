@@ -1,0 +1,14 @@
+//chaos programme
+//x(n+1)=k*x(n)*(1-x(n))
+k=zeros(400,1)
+n=100
+for l=1:4000
+   k(l)=0+(l-1)*(0.001)
+   for j=2:n
+       x(1)=rand()
+       x(j)=k(l)*x(j-1)*(1-x(j-1))
+   end
+   A(l)=x(n)
+end
+clf
+plot2d(k,A,-9)   

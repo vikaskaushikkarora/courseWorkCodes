@@ -1,0 +1,17 @@
+//creating scatter plots
+clf
+clc
+funcprot(0)
+x=[0:0.2:2*%pi]
+plot2d(x,sin(x),-1)
+xgrid
+x=[0:0.4:2*%pi]
+plot(x,sin(x),'ro') //simple plot can also create the scatter plots
+x=[0:0.1:2*%pi]
+plot2d2(x,exp(-x)) // creates continuous bargraphic srtuctures
+plot2d3(x,exp(x)/320,2) // creates discreete bargraphic srtuctures
+x=linspace(0,5,20)
+y=5-x.*x^(1/4)
+plot2d4(x,y) // also shows arrows with graphs useful in phase space solving odes
+comet(x,x^(1/2))//creates moving point (comet)
+plot2d(x-4,exp(-x^2),2) // shifts the graph

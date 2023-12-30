@@ -1,0 +1,15 @@
+//defining polynomialsa
+clc
+E=poly([2 3 4],'x')
+disp(E)
+F=poly([1 2],'x','c') // constants
+A=poly([3 2],'x','r') //roots
+disp(A)
+B=derivat(A)
+disp(B)
+C=A+E
+disp(C)
+D=A/F
+disp(D)
+S=companion(E)
+disp(S) // Companion matrix whose characteristic equation is this polynomial

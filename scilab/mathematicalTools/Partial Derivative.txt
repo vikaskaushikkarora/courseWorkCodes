@@ -1,0 +1,13 @@
+//partial derivative
+function z=u(x,y)
+    z=sin(x*y)
+endfunction
+function w=dx(x,y,f)
+    h=0.001
+    w=(u(x+h,y)-u(x,y))/h
+endfunction
+x=0:0.01:2
+y=0:0.01:2
+z=feval(x,y,u)
+w=feval(x,y,u)
+surf(x,y,w)

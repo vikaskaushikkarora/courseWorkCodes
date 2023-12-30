@@ -1,0 +1,35 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+E=-400 #eV
+L=1e-10  #meters
+n=1000 #Space Divisions
+charge=1.6e-19  #Coloumbs
+m=9.1e-31 #kg
+h=1.0557e-34 #Plank Cosntant
+x=np.linspace(-L,L,n) #space
+dx=x[2]-x[1]
+y=np.zeros(n)
+v=np.zeros(n)
+y[0]=0
+y[1]=1
+Ep=0
+y(n)=1000000
+while abs(y(n))>10000 & E<0 then 
+     Ep=E*charge
+for i=2:(n-1)
+    if abs(x(i))< L/2 then
+        v(i)=-400*charge
+        end
+    k=((2*m*(Ep-v(i)))*dx^2)/h^2
+     y(i+1)=((2-k)*y(i))-y(i-1)
+end
+ E=E+0.1
+end  //while
+disp("ground state energy :")
+disp(E)
+plot(x,y.*y,'b')
+
+disp("first state energy :")
+disp(E)
+plot(x,y.*y,'b')

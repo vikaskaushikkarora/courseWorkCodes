@@ -1,0 +1,31 @@
+// calculating density of a simple solid following pde D(u(x,y))x=D(u(x,y))y with boundary conditions of at y=y
+//(1),u=x and at x=x(1)=0,u=0 and at x=1 , u=1 for all y 
+clc
+clf
+n=100
+m=100
+x(1)=0
+y(1)=0
+u(1,1)=0
+h=0.01
+k=0.01
+for i=1:n
+    x(i+1)=x(1)+(i)*h
+end
+for j=1:m
+    y(j+1)=y(1)+(j)*k
+    u(1,j)=0
+    u(n+1,j)=1
+end
+function z=f(x)
+    z=x
+endfunction
+for i=1:n
+    u(i,1)=f(x(i))
+end
+for j=1:m
+    for i=1:n
+     u(i,j+1)=(k/h)*u(i+1,j)+(1-k/h)*u(i,j)
+end
+end
+surf(x,y,u,'facecol','red','edgecol','blu') // creating a surface

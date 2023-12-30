@@ -1,0 +1,25 @@
+// Self Made Comet Command
+n=30
+//define time window
+t=linspace(0,2,n)
+// define the trajectory of the particle in parameterized form 
+for i=1:n
+x(i)=t(i)
+y(i)=5*t(i)^2
+end
+for i=1:n
+drawlater() ;//turn on double buffering so that operations
+clf(); //occur in the background
+    X=zeros(i,1)
+    Y=zeros(i,1)
+for j=1:i
+    X(j)=x(j)
+    Y(j)=y(j)
+end
+plot2d(X,Y)
+plot(x(i),y(i),'*r') 
+xgrid
+ax = gca();
+ax.data_bounds = [0,0;2,20];//this is the command not to chnage the scale of the graph
+drawnow() ;//copy the background buffer to the visible buffer
+end

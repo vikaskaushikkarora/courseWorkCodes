@@ -1,0 +1,30 @@
+// Visuallizing Newton Raphson Method
+clf
+clc
+funcprot(0)
+deff('y=f(x)','y=1/2-exp(-x^2)')//define function 
+h=0.001
+deff('z=g(x,f)','z=(f(x+h)-f(x))/h')//define slope function
+x=linspace(-10,10,10000)
+plot(x,f)
+xgrid
+a1=rand()//generates random number between 0 and 1
+plot(a1,f(a1),'go')
+deff('w=j1(x)','w=f(a1)+g(a1,f)*(x-a1)')
+plot(x,j1,'r')
+a2=a1-f(a1)/g(a1)
+plot(a2,f(a2),'go')
+deff('w=j2(x)','w=f(a2)+g(a2,f)*(x-a2)')
+plot(x,j2,'r')
+a3=a2-f(a2)/g(a2)
+plot(a3,f(a3),'go')
+deff('w=j3(k)','w=f(a3)+g(a3,f)*(k-a3)')
+plot(x,j3,'r')
+a4=a3-f(a3)/g(a3)
+plot(a4,f(a4),'go')
+deff('w=j4(k)','w=f(a4)+g(a4,f)*(k-a4)')
+plot(x,j4,'r')
+a5=a4-f(a4)/g(a4)
+plot(a5,f(a5),'b*')
+disp(a5)
+disp(f(a5))

@@ -1,0 +1,24 @@
+// DEFINITE INTEGRATION //
+// We calculate area of stripes and the upper triangles (Linear approximation)  
+clc
+funcprot(0)
+//Define function
+function y=f(x)
+    y=exp(-x^2)
+endfunction
+//Define Differentiated function
+function z=d(x,f)
+    z=(f(x+h)-f(x))/h
+endfunction
+//Define Definite integration
+function r=I(a,b,f)
+    h=0.001
+    N=(b-a)/h
+    A(1)=f(a)*h+(0.5)*d(a)*h*h
+    for i=2:N+1
+      A(i)=A(i-1)+(f(a+h*(i-1)))*h+(0.5)*(d(a+h*(i-1)))*h*h
+    end
+    r=A(N+1)
+endfunction
+B=I(-10,10,f)
+disp(B)

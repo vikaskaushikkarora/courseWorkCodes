@@ -1,0 +1,21 @@
+//Vibrations On A plane Sheet
+x=-2:0.1:2
+y=-2:0.1:2
+function z=f(x,y)
+    z=sin(x*y)
+endfunction
+z=feval(x,y,f)
+disp(z)
+n=2*%pi
+for i=1:0.1:n
+drawlater() ;//turn on double buffering so that operations
+clf(); //occur in the background
+surf(x,y,z*sin(i)) 
+xgrid
+xlabel('x')
+ylabel('y')
+zlabel('z')
+ax = gca();
+ax.data_bounds = [-2,-2,-2.5;2,2,2.5];//this is the command not to chnage the scale of the graph
+drawnow() ;//copy the background buffer to the visible buffer
+end

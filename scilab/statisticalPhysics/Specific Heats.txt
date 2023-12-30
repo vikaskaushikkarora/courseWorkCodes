@@ -1,0 +1,40 @@
+// Specific Heat //
+clc
+clf
+n=500 // number of divisions in temperature
+Na=6.02e23 // Avogadro Number
+k=1.38e-23 // Boltzmann Constant
+R=Na*k // Gas Constant
+v=1e12 // Einstein Frequncey of lattice oscillation 
+h=6.62e-34 // Plank's Constant
+V=1e13 // Debye Cutoff Frequency
+c=3e+8 // Speed of light
+t=0 // Temperature
+tf=300 // final temperature
+Cv1=zeros(1,n) // Doulong Petit Specific Heat
+Cv=ones(1,n) // Einstein Specific Heat
+Cv2=zeros(1,n) //Debye Specific Heat
+td=(h*c/k)*((6*3.14*3.14*Na/V)^(1/3)) // Debye Temperature
+disp('Debye Temperature')
+disp(td)
+function a=y(x)
+    a=((x^4)*exp(x))/((exp(x)-1)^2)
+endfunction
+for i=1:n
+    t=1+i*(tf-1)/n
+//Dulong petit law 
+Cv(i)=3*R
+//Einstein's Law 
+Cv1(i)=3*R*((h*v/(k*t))^2)*(exp(h*v/(k*t))/((exp(h*v/(k*t))-1)^2))
+//Debye's Law 
+xd=td/t
+s=intg(0,xd,y)
+Cv2(i)=9*Na*k*((t/td)^3)*s
+end
+t=linspace(1,tf,n)
+plot2d(t,Cv,1)
+plot2d(t,Cv1,2)
+plot2d(t,Cv2,3)
+xlabel("Temperature")
+ylabel("Specific heat")
+Q=legend('Doulong Petit','Einstein','Debye')

@@ -1,0 +1,23 @@
+// The distribution of particles in the left and right half of the box reaching Equllibrium with the passage of time //
+clc
+clf
+funcprot(0)
+T=2000 // Time Window
+t=linspace(0,1,T)
+N=1000 // Total number of particles in the box
+n=zeros(T,1) // Number of particles in left half at any time 't'
+n(1)=N/3 //Initial number of particles in left half
+for i=2:T
+    r=rand(1,1) // assigning a random probability of crossing from left to right
+    if r<n(i-1)/N  //'(n(i-1)/N' represents the average possiblity of particle going from   left to right , if the random possiblity lies between zero to avergae possiblity , then the particle goes to right // 
+        n(i)=n(i-1)-1
+    else 
+        n(i)=n(i-1)+1 // else the particle goes from right to left ( You can remove +1 if the particles from right dont come into right half or increase the possiblity of paricles going from right to left by adding 2 and so on ...)//
+     end
+end
+plot2d(t,n/N,1)
+plot2d(t,1-(n/N),2)
+q=legend('Particles in left box','Particles in right box')
+xlabel('Time window')
+ylabel('No. of particles in left half ')
+xgrid

@@ -1,0 +1,12 @@
+clc
+funcprot(0)
+n=input("enter the number of iterations");
+function z=f(x,y)
+    s(1)=1^(-(x+%i*y));
+    for p=1:n
+        s(p+1)=s(p)+((p+1)^(-(x+%i*y)));   
+    end
+    z=s(p)
+endfunction
+disp("Try evaluating the function at any complex number of the form x+iy i.e.try evaluating like : f(x,y)");
+disp(" Note : Valid for those complex numbers only whose real part > 1");

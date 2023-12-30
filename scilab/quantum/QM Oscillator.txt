@@ -1,0 +1,44 @@
+// Quantum Harmonic Oscillator //
+// The Proton inside a neucleus under r^2 potential //
+clc
+funcprot(0)
+N=1501
+h=1.0546e-34
+e=1.6021e-19
+m=1.673e-27
+N2=N+2
+x=linspace(-1e-14,1e-14,N2)
+dx=x(2)-x(1)
+x(:,N2)=[]
+x(:,1)=[]
+Y=zeros(N,N)
+for i=1:N-1
+    Y(i,i)=-2
+    Y(i,i+1)=1
+    Y(i+1,i)=1
+end
+Y(N,N)=-2
+dsq=(dx)^2
+H=h^2
+E=e^2
+k=(1/dsq)*(H/(2*m))
+M=-(Y)*k
+K=100*(1e6)*(1e30)*e
+Z=0
+U=zeros(N,N)
+for i=1:N
+    U(i,i)= (1/2)*(K*x(i)*x(i)) // The potential of a Harmonic Oscillator .
+V=M+U
+end
+[psi,Estates]=spec(V)
+P=psi.*psi
+eignenergy=Estates*(1/e)
+disp("The ground state energy (in eVs) is : ")
+disp(eignenergy(1,1)/1e6)
+disp("The first excited state energy (in eVs) is : ")
+disp(eignenergy(2,2)/1e6)
+plot(x,P(:,1)')
+plot(x,P(:,2)','g')
+plot(x,P(:,3)','y')
+plot(x,P(:,20)','r')
+xgrid

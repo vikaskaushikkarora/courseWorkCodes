@@ -1,0 +1,44 @@
+clc
+funcprot(0)
+N=1501
+h=1.0546e-34
+m=9.1093e-31
+e=1.6021e-19
+l=0.5e-10
+N2=N+2
+x=linspace(-l,l,N2)
+dx=x(2)-x(1)
+x(:,N2)=[]
+x(:,1)=[]
+Y=zeros(N,N)
+for i=1:N-1
+    Y(i,i)=-2
+    Y(i,i+1)=1
+    Y(i+1,i)=1
+end
+Y(N,N)=-2
+dsq=(dx)^2
+H=h^2
+E=e^2
+k=(1/dsq)*(H/(2*m))
+M=-(Y)*k
+U=zeros(N,N)
+for i=1:50
+    U(i,i)=0
+end
+for i=50:N-50
+    U(i,i)=-400*e
+end
+for i=N-50:N
+    U(i,i)=0
+end
+V=M+U
+[psi,Estates]=spec(V)
+disp("ground state energy (in eV)")
+disp(Estates(1,1)/e)
+disp("first excited state energy (in eV)")
+disp(Estates(2,2)/e)
+plot(x,psi(:,1)')
+plot(x,psi(:,2)','r')
+q=legend(['ground state','first excited state'])
+xgrid

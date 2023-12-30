@@ -1,0 +1,13 @@
+//Vibrating String Simulation
+x=linspace(0,10,1000)
+y=sin(x)
+nFrames=30
+t=linspace(0,30)
+for i=1:nFrames
+drawlater(); //turn on double buffering so that operations
+clf(); //occur in the background
+plot(x,y*cos(t(i)));
+ax = gca();
+ax.data_bounds = [0,-1;2*%pi,1]; //this is the command not to chnage the scale of the graph
+drawnow(); //copy the background buffer to the visible buffer
+end

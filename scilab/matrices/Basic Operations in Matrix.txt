@@ -1,0 +1,60 @@
+// BASIC OPERATIONS IN MATRIX ALZEBRA 
+// DEFINING A GENERAL VECTOR
+clc
+x=[1 2 3 4 5 6] // Two different ways to define a row matrix
+disp(x)
+y=linspace(1,6,6)
+disp(y)
+z=[1;2;3;4;5;6] // two different ways to define a column matrix
+disp(z)
+w=linspace(1,6,6)'
+disp(w)
+
+//DEFINNG A TRANSFORMATION MATRIX
+X=[1 2 3;4 5 6;7 8 9]
+disp(X)
+Y=zeros(5,5)
+disp(Y)
+for i=1:5
+Y(i,i)=2
+end
+disp(Y)
+for i=2:5
+Y(i,i-1)=-1
+end
+disp(Y)
+Z=ones(3,3)
+disp(Z)
+
+// DEFINING A DERIVATIVE MATRIX
+D=zeros(5,5)
+for i=1:5
+D(i,i)=i-1
+end
+disp(D)    
+
+// DEFINING AN INTEGRATING MATRIX
+I=zeros(5,5)
+I(1,1)=0
+for i=2:5
+I(i,i)=1/(i-1)
+end
+disp(I)
+A=zeros(5,5)
+for i=2:5
+A(i,i)=-2
+A(i,i-1)=4
+A(i-1,i)=7
+end
+disp(A)
+
+// ROW OPERATION IN SCILAB
+for j=1:5 //since Y is a (5,5)matrix
+    A(1,j)=A(1,j)-A(2,j) //the first row gets converted to first row minus second row
+end
+disp(A)
+//COLUMN OPERATION IN SCILAB
+for i=1:5
+    A(i,1)=A(i,1)-A(i,2)
+end
+disp(A)

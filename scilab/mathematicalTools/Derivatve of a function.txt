@@ -1,0 +1,15 @@
+//derivative of a function
+clf
+clc
+funcprot(0)
+h=0.001
+function y=f(x)
+    y=exp(-x)
+endfunction
+function z=d(x,f)
+    z=(f(x+h)-f(x))/h
+endfunction
+x=-5:0.001:5
+plot(x,f)
+plot(x,d,'r')
+xgrid

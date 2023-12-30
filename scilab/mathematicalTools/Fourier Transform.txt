@@ -1,0 +1,16 @@
+//Fourier Transform//
+function y=f(x)
+    y=exp(-x^2)
+endfunction
+function z=g(s,x)
+    z=(1/(2*%pi)^(1/2))*(f(x)*exp(-%i*s*x))
+endfunction
+function q=fourier(s)
+    q=integrate('g(s,x)','x',-20,20)
+endfunction
+x=-10:0.1:10
+plot(x,f)
+s=-10:0.1:10
+plot(s,fourier,'r')
+xgrid
+Q=legend('Function','Fourier Transform')

@@ -1,0 +1,30 @@
+// Indefinite Integration of a function ,which does not explode at x=0, with first linear approximation 
+// Let F(x) be the indefinite integrated function of f(x)
+// F(x)-F(0)= area under the curve of f(x') from x' = 0 to x 
+// We calculate area of stripes and the upper triangles (Linear approximation) 
+//Also the stepsizes are increased with increasing x because unless it will take a large time , which gives less accuracy in F(x) for large x ,of course, but it reduces a lot of time ...
+//For more accuracy , you can reduce the power of x in the expression of h varying from 0 to 1 
+clc
+funcprot(0)
+//define function
+function y=f(x)
+    y=(x^2)/(1+exp(x^2))
+endfunction
+//define differentiated function
+function z=d(x,f)
+    z=(f(x+h)-f(x))/h
+endfunction
+//define indefinite integration
+function r=I(x,f)
+    h=0.001*(1+x^(9/10))
+    N=x/h
+    A(1)=f(0)*h+(0.5)*d(0)*h*h
+    for i=2:N+1
+      A(i)=A(i-1)+(f(x*(i-1)/N))*h+(0.5)*(d(x*(i-1)/N))*h*h
+    end
+    r=A(N+1)
+endfunction
+x=0:0.01:5
+plot(x,f)
+plot(x,I,'g')
+xgrid

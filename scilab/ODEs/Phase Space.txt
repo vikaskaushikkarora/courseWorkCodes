@@ -1,0 +1,39 @@
+// Drawing Phase Space Of an ODE
+clc
+clf
+funcprot(0)
+w= 1//natural frequency of oscillation
+b= 0.4 //damping constant
+h=0.01 //stepsize
+n=500 // Number of Iterations 
+function dy=f(x,y,z)
+    dy=z
+endfunction
+function dz=g(x,y,z)
+    dz=-(w^2)*y-b*z^2
+endfunction
+x(1)=0
+//movement of particle in phase space
+//for i=1:n
+//plot(y(i),z(i),'*r');
+//xgrid
+//end
+for i= 1:15
+    for j=1:15
+// Defining Initial Conditions by Creating Random Numbers from -1 to 1
+A=rand() //rand() creates random numbers from 0 to 1
+B=rand()
+C=(B-A)/abs(B-A)        
+y(1)=10*C*A
+z(1)=10*C*B
+for i=1:n
+    x(i+1)=x(i)+h
+    y(i+1)=y(i)+h*f(x(i),y(i),z(i))
+    z(i+1)=z(i)+h*g(x(i),y(i),z(i))
+end
+plot2d(y,z,2)
+xgrid
+ax = gca();
+ax.data_bounds = [-20,-20;20,20]; //this is the command not to chnage the scale of the graph
+end
+end

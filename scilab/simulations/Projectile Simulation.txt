@@ -1,0 +1,28 @@
+// Projectile Simulation
+V=6 //initial velocity 
+theta= (1+2)*10 // initial angle in degrees
+R=%pi*theta/180
+a=10 // Value of gravity
+v=V*cos(R)
+v0=V*sin(R)
+t=linspace(0,2*v0/a,800)
+for i=1:800
+    X(i)=v*t(i)
+    Z(i)=v0*t(i)-a*t(i)*t(i)/2
+end
+for i=1:2*10:800
+drawlater()
+clf()
+plot(X(i),Z(i),'*r')
+xgrid
+ax=gca()
+ax.data_bounds = [0,0;(600/596)*2*v0*v/a,(600/596)*v0*v0/(2*a)]
+xlabel('x')
+Q=legend('The projectile')
+ylabel('Function')
+drawnow()
+end
+plot2d(X,Z)
+for j=1: 2
+    plot(t*(v0*v0/(2*a))/2,tan(R)*t*(v0*v0/(2*a))/2)
+end

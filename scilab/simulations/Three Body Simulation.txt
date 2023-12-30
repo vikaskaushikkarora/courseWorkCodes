@@ -1,0 +1,81 @@
+// Three Body Simulation (Pro)//
+funcprot(0)
+clc
+clf
+// enter the masses
+a=10
+b=1
+c=10
+// enter the initial coordinats of the three bodies 
+x10=1
+vx10=2
+y10=0
+vy10=0.2
+x20=2
+vx20=-4
+y20=0
+vy20=-0.2
+x30=1
+vx30=1
+y30=1
+vy30=1
+function dx=f(t,x)
+    dx(1)=x(2)
+    dx(2)=-(b*(x(1)-x(5))*((x(1)-x(5))^2+(x(3)-x(7))^2)^(-3/2)+c*(x(1)-x(9))*((x(1)-x(9))^2+(x(3)-x(11))^2)^(-3/2));
+    dx(3)=x(4)
+    dx(4)=-(b*(x(3)-x(7))*((x(1)-x(5))^2+(x(3)-x(7))^2)^(-3/2)+c*(x(3)-x(11))*((x(1)-x(9))^2+(x(3)-x(11))^2)^(-3/2));
+    dx(5)=x(6)
+    dx(6)=-(a*(x(5)-x(1))*((x(5)-x(1))^2+(x(7)-x(3))^2)^(-3/2)+c*(x(5)-x(9))*((x(5)-x(9))^2+(x(7)-x(11))^2)^(-3/2));
+    dx(7)=x(8)
+    dx(8)=-(a*(x(7)-x(3))*((x(5)-x(1))^2+(x(7)-x(3))^2)^(-3/2)+c*(x(7)-x(11))*((x(5)-x(9))^2+(x(7)-x(11))^2)^(-3/2));
+    dx(9)=x(10);
+    dx(10)=-(a*(x(9)-x(1))*((x(9)-x(1))^2+(x(11)-x(3))^2)^(-3/2)+b*(x(9)-x(5))*((x(9)-x(5))^2+(x(11)-x(7))^2)^(-3/2));
+    dx(11)=x(12)
+    dx(12)=-(a*(x(11)-x(3))*((x(9)-x(1))^2+(x(11)-x(3))^2)^(-3/2)+b*(x(11)-x(7))*((x(9)-x(5))^2+(x(11)-x(7))^2)^(-3/2));
+endfunction
+n=100
+t=linspace(0,1,n)
+sol=ode([x10,vx10,y10,vy10,x20,vx20,y20,vy20,x30,vx30,y30,vy30]',0,t,f);
+for i=1:n
+X1(i)=sol(1,i)
+Y1(i)=sol(3,i)
+X2(i)=sol(5,i)
+Y2(i)=sol(7,i)
+X3(i)=sol(9,i)
+Y3(i)=sol(11,i)
+end
+for i=1:n
+drawlater() ;//turn on double buffering so that operations
+clf(); //occur in the background
+ Xa=zeros(i,1)
+    Ya=zeros(i,1)
+for j=1:i
+    Xa(j)=X1(j)
+    Ya(j)=Y1(j)
+end
+plot2d(Xa,Ya,1)
+ Xb=zeros(i,1)
+    Yb=zeros(i,1)
+for j=1:i
+    Xb(j)=X2(j)
+    Yb(j)=Y2(j)
+end
+plot2d(Xb,Yb,2)
+ Xc=zeros(i,1)
+    Yc=zeros(i,1)
+for j=1:i
+    Xc(j)=X3(j)
+    Yc(j)=Y3(j)
+end
+plot2d(Xc,Yc,3)
+plot(X1(i),Y1(i),'*r') 
+plot(X2(i),Y2(i),'*b') 
+plot(X3(i),Y3(i),'*g') 
+xgrid
+ax = gca();
+ax.data_bounds = [min(X1(1),X2(1),X3(1),X1(n),X2(n),X3(n)),min(Y1(1),Y2(2),Y3(1),Y1(n),Y2(n),Y3(n));max(X1(1),X2(1),X3(1),X1(n),X2(n),X3(n)),max(Y1(1),Y2(2),Y3(1),Y1(n),Y2(n),Y3(n))];//this is the command not to change the scale of the graph
+drawnow() ;//copy the background buffer to the visible buffer
+end
+plot(X1,Y1,1)
+plot(X2,Y2,2)
+plot(X3,Y3,3)

@@ -1,0 +1,25 @@
+// Convergence Of Infinite Series //
+n=30
+x=zeros(n+1,0)
+for i=1:n+1
+    x(i)=i // x is a matrix containing integers
+end
+for m=1:3
+// Define Series : sum 1/x^m
+for k=1:n
+    b(k)=1/(x(k))^m
+end
+disp('The Series Follows as : ')
+disp(b)
+// Finding Partial Sum at Each Stage
+a(1)=0
+for j=1:n   
+    a(j+1)=a(j)+b(j) 
+end
+disp('The Partial Sums Are :')
+disp(a)
+// Integral Test
+plot2d(x,a,m) 
+xlabel(" No. of terms taken for partial sum ")
+ylabel(" sum of the series ")
+end

@@ -1,0 +1,30 @@
+// A Moving Point //
+n=100
+//define time window
+t=linspace(0,2,n)
+x=zeros(n,1)
+y=zeros(n,1)
+vx=zeros(n,1)
+vy=zeros(n,1)
+ax=0.002
+ay=0.001
+// define the trajectory of the particle in parameterized form 
+x(1)=0
+y(1)=0
+vx(1)=0
+vy(1)=0
+for i=2:n
+vx(i)=vx(i-1)+ax*(i-1)
+vy(i)=vy(i-1)+ay*(i-1)
+x(i)=x(i-1)+vx(i-1)*(i-1)
+y(i)=y(i-1)+vy(i-1)*(i-1)
+end
+for j=1:n
+drawlater() ;//turn on double buffering so that operations
+clf(); //occur in the background
+plot(x(j),y(j),'*r') 
+xgrid
+ax = gca();
+ax.data_bounds = [-0.1,-0.1;4.5,4.5];//this is the command not to chnage the scale of the graph
+drawnow() ;//copy the background buffer to the visible buffer
+end

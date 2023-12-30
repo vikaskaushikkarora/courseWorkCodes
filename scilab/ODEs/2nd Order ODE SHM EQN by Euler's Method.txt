@@ -1,0 +1,21 @@
+clc
+clf 
+funcprot(0)
+// convert second order into two first order equations 
+function dy=f(x,z)
+    dy=z;
+endfunction     // mendatory step
+function dz=g(x,y,z)
+    dz=-0.5*z-4*y // damping factor is 0.5 and the angular frequency of oscillation is 2 //
+endfunction
+x(1)= 0 //initial value of independent variable
+y(1)= 1 //initial value of dependent variable
+z(1)= 3 //initial value of rate of change of independent variable
+h=0.01;
+for i=1:1000
+    x(i+1)=x(i)+h;
+    y(i+1)=y(i)+h*f(x(i),z(i));
+    z(i+1)=z(i)+h*g(x(i),y(i),z(i));
+end
+plot(x,[y,z]')
+q=legend('function','slope')

@@ -1,0 +1,10 @@
+//simple 2d plot
+clc
+clf
+function y=f(x)
+      y=x^2*exp(-x^2)
+endfunction
+x=linspace(0,3,1000)
+plot(x,f,'b')
+plot(x,x^(1/2),'ro',x,x.*x,'g+-')
+//plot([x;x],[sin(x);cos(x)],'marker','d','markerFaceColor','green','markerEdgeColor','yel')

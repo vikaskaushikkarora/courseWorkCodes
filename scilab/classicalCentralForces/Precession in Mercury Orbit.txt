@@ -1,0 +1,30 @@
+// Precession in Orbit of Mercury 
+clf
+clc
+x0=0.39 // In Astronomical Units
+vx0=0
+y0=0
+vy0=sqrt(a/0.39)
+a=1 //GMm : gravitational strength
+b= 1.1e-8 // Correction Terms According to GTR (in units AU^2)
+// Newtonian Mechanics
+function dx=f(t,x)
+    dx(1)=x(2);
+    dx(2)=-((a+(b*(x(1)^2+x(3)^2)^(-1)))*x(1))*(x(1)^2+x(3)^2)^(-3/2)
+    dx(3)=x(4);
+    dx(4)=-((a+(b*(x(1)^2+x(3)^2)^(-1)))*x(3))*(x(1)^2+x(3)^2)^(-3/2);
+endfunction
+t=0:0.01:200
+sol=ode([x0,vx0,y0,vy0]',0,t,f)
+plot2d(sol(1,:),sol(3,:),1)
+
+function dx=f(t,x)
+    dx(1)=x(2);
+    dx(2)=-((a+(b*(x(1)^2+x(3)^2)^(-1)))*x(1))*(x(1)^2+x(3)^2)^(-3/2)
+    dx(3)=x(4);
+    dx(4)=-((a+(b*(x(1)^2+x(3)^2)^(-1)))*x(3))*(x(1)^2+x(3)^2)^(-3/2);
+endfunction
+t=0:0.01:1000
+sol=ode([x0,vx0,y0,vy0]',0,t,f)
+plot2d(sol(1,:),sol(3,:),2)
+Q=legend('Newtonian Prediction ' , 'GTR Prediction')
